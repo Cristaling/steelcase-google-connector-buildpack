@@ -31,7 +31,7 @@ install_nodejs() {
   local dir="$2"
 
   echo "Resolving node version $version..."
-  if ! read number url < <(curl --silent --get --retry 5 --retry-max-time 15 --data-urlencode "range=$version" "https://nodebin.herokai.com/v1/node/$platform/latest.txt"); then
+  if ! read number url < <(curl --silent --get --retry 5 --retry-max-time 15 --data-urlencode "range=$version" "s3://s3-us-west-2.amazonaws.com/google-connector-buildpack/latest.txt"); then
     fail_bin_install node $version;
   fi
 
