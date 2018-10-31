@@ -31,6 +31,9 @@ install_nodejs() {
   local dir="$2"
 
   echo "Resolving node version $version..."
+  # We need to download a custom-built version of NodeJS 0.8.28 which links against a newer version of OpenSSL (1.0.1.)
+  # To do this, we override the typical version resolution method used by the built-pack to retrieve a a custom NodeJS build from S3.
+  # The 'latest.txt' file has a link to the specific file on S3.
   if ! read number url < <(curl --silent --get --retry 5 --retry-max-time 15 --data-urlencode "range=$version" "https://s3-us-west-2.amazonaws.com/google-connector-buildpack/latest.txt"); then
     fail_bin_install node $version;
   fi
