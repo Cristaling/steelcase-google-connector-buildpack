@@ -116,8 +116,10 @@ yarn_prune_devdependencies() {
 
 npm_node_modules() {
   local build_dir=${1:-}
-  local production=${NPM_CONFIG_PRODUCTION:-false}
-
+  # Want to be able to set npm install production flag
+  # separately from the NODE_ENV.
+  local production=${NPM_INSTALL_ENV_PRODUCTION:-false}
+  
   if [ -e $build_dir/package.json ]; then
     cd $build_dir
 
